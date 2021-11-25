@@ -1,0 +1,7 @@
+#!/bin/bash
+export VAULT_TOKEN=$(printf $(kubectl get secret --namespace kube-system vault-root-token -o jsonpath="{.data.root_token}" | base64 -d);echo)
+echo $VAULT_TOKEN
+vault kv get -address="http://127.0.0.1:8200"  secrets/customer1/data1
+k1=$(vault kv get -field=k1 -address="http://127.0.0.1:8200"  secrets/customer1/data1)
+echo $k1
+docker build -t $2 --network container:$1 -f Dockerfile .

@@ -1,0 +1,39 @@
+version: v1
+kind: simloud-deployment
+boto3_version: 1.10
+kubernetes_version: v1.17
+micro_service_type: kubernetes
+check_mode: advanced
+
+secrets:
+  - path: /secrets/customer1/data1
+    env_name_prefix: CUSTENV1
+
+environment:
+ - env_name: ENVNAME1
+   value: "env_1"
+
+external_api:
+  sub_domain: "k8s"
+  base_url: 'k8s-s-2'
+  port: 443
+  cors:
+    enable_cors: "true"
+
+service:
+  name: k8s-s-2
+  type: ClusterIP
+  annotations: {}
+  externalPort: 80
+  internalPort: 8080
+spec:
+  pod:
+  - name: k8s-s-2
+  resources:
+    replicas: 1
+    requests:
+      memory: "60Mi"
+      cpu: "200m"
+    limits:
+      memory: "120Mi"
+      cpu: "1000m"
