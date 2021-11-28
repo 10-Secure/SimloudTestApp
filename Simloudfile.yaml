@@ -14,7 +14,7 @@ environment:
    value: "env_1"
 
 external_api:
-  sub_domain: "/"
+  sub_domain: "k8s"
   base_url: 'k8s-s-2'
   port: 443
   cors:
